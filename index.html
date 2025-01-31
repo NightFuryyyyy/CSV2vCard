@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>CSV to vCard Converter</title>
+        <link rel="stylesheet" href="./style.css">
+        <script src="./script.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="inner">
+                <h1>CSV to VCF Converter</h1>
+                <p>Upload a CSV file containing columns <strong>Name</strong> and <strong>Phone</strong>.</li><br><br>
+                <input type="file" accept=".csv" onchange="uploaded()"><br>
+                <div id="table"></div><br>
+                <input type="button" value="Convert to vCard" onclick="convertToVcf()">
+            </div>
+        </div>
+    </body>
+</html>

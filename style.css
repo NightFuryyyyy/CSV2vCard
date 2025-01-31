@@ -1,0 +1,46 @@
+@keyframes rainbow {
+    from {background-position: 0% 0%;}
+    to {background-position: 100% 100%;}
+}
+body {
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    background: linear-gradient(135deg,
+        #e60000, #ff8e00, #ffef00, #00821b, 
+        #004bff, #780089, #e60000, #ff8e00);
+    background-size: 700% 700%;
+    animation: rainbow 10s linear infinite;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-size: larger;
+}
+.container {
+    padding: 15% 15% 0 15%;
+}
+.inner {
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 2em;
+    padding: 5px 25px;
+}
+input[type=button], input::file-selector-button {
+    font-family: monospace;
+    padding: 10px;
+    border-radius: 50px;
+    transition: background-color 1s, color 1s;
+    width: fit-content;
+}
+#table {
+    overflow: auto;
+    max-width: 900px;;
+    max-height: 200px;
+}
+table, tr, th, td{
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    border-collapse: collapse;
+}
