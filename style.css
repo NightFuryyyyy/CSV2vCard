@@ -1,15 +1,13 @@
-@keyframes rainbow {
+@keyframes movingBg {
     from {background-position: 0% 0%;}
     to {background-position: 100% 100%;}
 }
 body {
     color: #ffffff;
     font-family: 'Courier New', Courier, monospace;
-    background: linear-gradient(135deg,
-        #e60000, #ff8e00, #ffef00, #00821b, 
-        #004bff, #780089, #e60000, #ff8e00);
+    background: linear-gradient(135deg, #3e0077, #000000, #000000, #007745, #000000, #000000, #3e0077, #000000);
     background-size: 700% 700%;
-    animation: rainbow 10s linear infinite;
+    animation: movingBg 30s linear infinite;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -26,7 +24,7 @@ body {
     border-radius: 2em;
     padding: 5px 25px;
 }
-input[type=button], input::file-selector-button {
+input[type=button], input::file-selector-button, select {
     font-family: monospace;
     padding: 10px;
     border-radius: 50px;
