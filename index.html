@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>CSV2vCard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./style.css">
         <script src="./script.js"></script>
     </head>
@@ -11,6 +12,12 @@
                 <p>Upload a CSV file containing columns <strong>Name</strong> and <strong>Phone</strong>.</li><br><br>
                 <input type="file" accept=".csv" onchange="uploaded()"><br>
                 <div id="table"></div><br>
+                <label for="version">Version: </label>
+                <select name="version">
+                    <option value="2.1">2.1</option>
+                    <option value="3.0">3.0</option>
+                    <option value="4.0">4.0</option>
+                </select>
                 <input type="button" value="Convert to vCard" onclick="convertToVcf()"><br><br>
             </div>
         </div>
