@@ -1,4 +1,4 @@
-let rows, nameIndex, phoneIndex, csvFile;
+let rows, nameIndex, phoneIndex, csvFile = "";
 function uploaded() {
     csvFile = document.querySelector("input[type=file]").files[0];
     if(!csvFile) {
@@ -23,8 +23,15 @@ function uploaded() {
 }
 
 function convertToVcf() {
+    if(csvFile == "") return;
     let vCardContent = '';
-    for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:3.0\nFN:${rows[i][nameIndex]}\nTEL;type=Mobile:${rows[i][phoneIndex]}\nEND:VCARD\n`;
+    if(document.querySelector("select").value == "3.0") {
+        for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:3.0\nFN:${rows[i][nameIndex]}\nTEL;type=Mobile:${rows[i][phoneIndex]}\nEND:VCARD\n`;
+    } else if(document.querySelector("select").value == "4.0") {
+        for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:4.0\nFN:${rows[i][nameIndex]}\nTEL;type=Mobile:${rows[i][phoneIndex]}\nEND:VCARD\n`;
+    } else {
+        for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:2.1\nFN:${rows[i][nameIndex]}\nTEL;CELL:${rows[i][phoneIndex]}\nEND:VCARD\n`;
+    }    
     const blob = new Blob([vCardContent], {type: 'text/plain'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
