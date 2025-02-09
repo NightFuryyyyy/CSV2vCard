@@ -5,7 +5,7 @@
 body {
     color: #ffffff;
     font-family: 'Courier New', Courier, monospace;
-    background: linear-gradient(135deg, #3e0077, #000000, #000000, #007745, #000000, #000000, #3e0077, #000000);
+    background: linear-gradient(135deg, #000000, #000000, #3e0077, #000000, #000000, #007745, #000000, #000000);
     background-size: 700% 700%;
     animation: movingBg 30s linear infinite;
     height: 100%;
