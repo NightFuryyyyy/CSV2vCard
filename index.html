@@ -3,23 +3,26 @@
         <title>CSV2vCard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./style.css">
-        <script src="./script.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="inner">
-                <h1>CSV to vCard Converter</h1>
-                <p>Upload a CSV file containing columns <strong>Name</strong> and <strong>Phone</strong>.</li><br><br>
-                <input type="file" accept=".csv" onchange="uploaded()"><br>
-                <div id="table"></div><br>
+        <div class="main_div">
+            <h1 class="heading">CSV to vCard Converter</h1>
+            <p class="instruction">Upload a CSV file containing columns <strong>Name</strong> and <strong>Phone</strong>.</p>
+            <input class="file_input" type="file" accept=".csv">
+            <div class="table_div">
+                <table></table>
+            </div>
+            <div class="export_div">
                 <label for="version">Version: </label>
-                <select name="version">
+                <select class="version" name="version">
                     <option value="2.1">2.1</option>
                     <option value="3.0">3.0</option>
                     <option value="4.0">4.0</option>
                 </select>
-                <input type="button" value="Convert to vCard" onclick="convertToVcf()"><br><br>
+                <input class="export_button" type="button" value="Export vCard">
             </div>
         </div>
+        
+        <script src="./script.js"></script>
     </body>
 </html>
