@@ -1,40 +1,68 @@
-let rows, nameIndex, phoneIndex, csvFile = "";
-function uploaded() {
-    csvFile = document.querySelector("input[type=file]").files[0];
-    if(!csvFile) {
+const file_input = document.querySelector(".file_input");
+const version = document.querySelector(".version");
+const export_button = document.querySelector(".export_button");
+const preview_table = document.querySelector(".table_div > table");
+
+file_input.onchange = () => {
+    const csvFile = file_input.files[0];
+    if (!csvFile) {
         alert('Please upload a CSV file.');
         return;
     }
     const reader = new FileReader();
     reader.onload = event => {
-        rows = event.target.result.trim().split('\n').map(row => row.split(',').map(val => val.trim()));
-        nameIndex = rows[0].indexOf('Name');
-        phoneIndex = rows[0].indexOf('Phone');
-        if(nameIndex === -1 || phoneIndex === -1) {
+        preview_table.innerHTML = "";
+        const table = event.target.result.trim().split('\n').map(row => row.split(',').map(val => val.trim()));
+        const indices = [table[0].indexOf('Name'), table[0].indexOf('Phone')];
+        if (indices[0] === -1 || indices[1] === -1) {
             alert('The CSV file must contain columns named "Name" and "Phone".');
             return;
         }
-        let table = `<table><tr><th>Name</th><th>Phone</th></tr>`;
-        for(let i = 1; i < rows.length; i++) table += `<tr><td>${rows[i][nameIndex]}</td><td>${rows[i][phoneIndex]}</td></tr>`;
-        table += "</table>";
-        document.getElementById("table").innerHTML = table;
-    }
+        const head_row = preview_table.insertRow();
+        head_row.innerHTML = "<th>Name</th><th>Phone</th>";
+        for (let i = 1; i < table.length; i++) {
+            const new_row = preview_table.insertRow();
+            indices.forEach(j => {
+                const new_cell = new_row.insertCell();
+                new_cell.appendChild(document.createTextNode(`${table[i][j]}`));
+            });
+        }
+        export_button.onclick = () => {
+            let vCardContent = '';
+            if (version.value == "3.0") {
+                for (let i = 1; i < table.length; i++) {
+                    vCardContent +=
+                        "BEGIN:VCARD\n" +
+                        "VERSION:3.0\n" +
+                        `FN:${table[i][indices[0]]}\n` +
+                        `TEL;type=Mobile:${table[i][indices[1]]}\n` +
+                        "END:VCARD\n";
+                }
+            } else if (version.value == "4.0") {
+                for(let i = 1; i < table.length; i++) {
+                    vCardContent += 
+                        "BEGIN:VCARD\n" +
+                        "VERSION:4.0\n" +
+                        `FN:${table[i][indices[0]]}\n` +
+                        `TEL;type=Mobile:${table[i][indices[1]]}\n` +
+                        "END:VCARD\n";
+                }
+            } else {
+                for(let i = 1; i < table.length; i++) {
+                    vCardContent +=
+                        "BEGIN:VCARD\n" +
+                        "VERSION:2.1\n" +
+                        `FN:${table[i][indices[0]]}\n` +
+                        `TEL;CELL:${table[i][indices[1]]}\n` +
+                        "END:VCARD\n";
+                }
+            }
+            const blob = new Blob([vCardContent], {type: 'text/plain'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = csvFile.name.replace(/\.csv$/, '.vcf');
+            a.click();
+        }
+    };
     reader.readAsText(csvFile);
-}
-
-function convertToVcf() {
-    if(csvFile == "") return;
-    let vCardContent = '';
-    if(document.querySelector("select").value == "3.0") {
-        for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:3.0\nFN:${rows[i][nameIndex]}\nTEL;type=Mobile:${rows[i][phoneIndex]}\nEND:VCARD\n`;
-    } else if(document.querySelector("select").value == "4.0") {
-        for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:4.0\nFN:${rows[i][nameIndex]}\nTEL;type=Mobile:${rows[i][phoneIndex]}\nEND:VCARD\n`;
-    } else {
-        for(let i = 1; i < rows.length; i++) vCardContent += `BEGIN:VCARD\nVERSION:2.1\nFN:${rows[i][nameIndex]}\nTEL;CELL:${rows[i][phoneIndex]}\nEND:VCARD\n`;
-    }    
-    const blob = new Blob([vCardContent], {type: 'text/plain'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = csvFile.name.replace(/\.csv$/, '.vcf');
-    a.click();
-}
+};
