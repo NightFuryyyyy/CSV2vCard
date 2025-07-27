@@ -1,4 +1,4 @@
-@keyframes movingBg {
+/* @keyframes movingBg {
     from {background-position: 0% 0%;}
     to {background-position: 100% 100%;}
 }
@@ -12,8 +12,62 @@ body {
     width: 100%;
     margin: 0;
     font-size: larger;
+} */
+
+body {
+    font-family: monospace;
+    background-color: #1f1f1f;
+    color: #e0e0e0;
 }
-.container {
+
+.main_div {
+    width: 90vw;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.heading {
+    text-align: center;
+}
+
+.instruction {
+    margin: 0px 0 10px;
+}
+
+.file_input {
+    font-family: inherit;
+    margin-bottom: 10px;
+}
+
+.file_input::file-selector-button, .version, .export_button {
+    height: 30px;
+    font-family: inherit;
+    background-color: #e0e0e0;
+    color: #1f1f1f;
+    border: none;
+    border-radius: 10px;
+    padding: 0px 10px;
+}
+
+.table_div {
+    display: none;
+    max-height: 200px;
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 10px;
+    overflow: scroll;
+}
+
+.table_div:has(tr) {
+    display: block;
+}
+
+.export_div {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* .container {
     padding: 15% 15% 0 15%;
 }
 .inner {
@@ -33,9 +87,8 @@ input[type=button], input::file-selector-button, select {
 }
 #table {
     overflow: auto;
-    max-width: 900px;;
-    max-height: 200px;
-}
+    max-width: 900px;
+} */
 table, tr, th, td{
     background-color: #ffffff;
     color: #000000;
